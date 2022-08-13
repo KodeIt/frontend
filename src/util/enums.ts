@@ -18,3 +18,8 @@ export enum SortOrderType {
     ASC,
     DESC
 }
+
+export enum ExecutionStatus {
+    SUCCESS,
+    FAILED
+}
