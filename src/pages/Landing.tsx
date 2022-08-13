@@ -4,12 +4,11 @@ import PageWrapper from "../components/common/PageWrapper";
 
 
 const Landing: FC = props => {
-    
-    let path: string = `/codes`; 
+
     const navigate = useNavigate(); 
     const routeChange = useCallback( (): void => { 
-        navigate(path);
-    }, [navigate, path] );
+        navigate(`/codes`);
+    }, [navigate] );
 
     return <PageWrapper>
         <div className={'flex flex-col h-full justify-center items-center gap-10 text-center'}>
