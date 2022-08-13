@@ -1,15 +1,16 @@
-import {FC} from "react";
+import {FC, useCallback} from "react";
 import { useNavigate } from "react-router-dom";
 import PageWrapper from "../components/common/PageWrapper";
 
 
 const Landing: FC = props => {
     
-    let navigate = useNavigate(); 
-    const routeChange = () =>{ 
-    let path = `/codes`; 
-    navigate(path);
-    }
+    let path: string = `/codes`; 
+    const navigate = useNavigate(); 
+    const routeChange = useCallback( (): void => { 
+        navigate(path);
+    }, [navigate, path] );
+
     return <PageWrapper>
         <div className={'flex flex-col h-full justify-center items-center gap-10 text-center'}>
             <div className={'text-4xl font-semibold text-sky-500 '}>Lorem ipsum dolor sit amet, consectetur adipiscing
