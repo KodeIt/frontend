@@ -236,19 +236,19 @@ const Compiler: FC = (props) => {
                     <div className={"w-[100%] mt-10 lg:w-[70%] h-[500px] lg:h-[615px] border rounded"}>
                         <CodeEditor language={language} code={code[language].text} onChange={handleCodeChange}/>
                     </div>
-                    <div className={" w-[30%] flex flex-col gap-5"}>
+                    <div className={"w-[100%] lg:w-[30%] flex flex-col gap-5"}>
                         <div className={"grid gap-2"}>
                             <div className={"text-gray-600 text-lg dark:text-gray-400"}>Input</div>
                             <textarea
                                 onChange={(e) => setInput(e.target.value)}
                                 placeholder={"Type the input your code needs"}
-                                className={"w-full h-[30vh] dark:bg-dark dark:text-gray-300 border border-gray-300 rounded font-mono p-3 dark:border-gray-600"}
+                                className={"h-[30vh] dark:bg-dark dark:text-gray-300 border border-gray-300 rounded font-mono p-3 dark:border-gray-600"}
                             ></textarea>
                         </div>
-                        <div className={"grid gap-2 "}>
+                        <div className={"grid gap-2 w-full"}>
                             <div className={"text-gray-600 text-lg dark:text-gray-400"}>Output</div>
                             <div
-                                className={"w-full h-[30vh] dark:text-gray-300 border border-gray-300 rounded font-mono p-3 overflow-scroll dark:border-gray-600"}>
+                                className={"h-[30vh] dark:text-gray-300 border border-gray-300 rounded font-mono p-3 overflow-scroll dark:border-gray-600"}>
                                 {!output ? "Your output goes here" : output.output}
                             </div>
                         </div>
