@@ -10,7 +10,7 @@ export enum Language {
 
 export enum SortOptionType {
     TITLE,
-    CREATED,
+    UPDATED,
     LANGUAGE
 }
 

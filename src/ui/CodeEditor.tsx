@@ -15,6 +15,8 @@ import "ace-builds/src-noconflict/theme-one_dark";
 import "ace-builds/src-noconflict/theme-cloud9_day";
 import "ace-builds/src-noconflict/ext-language_tools";
 import {Language} from "../util/enums";
+import {useSelector} from "react-redux";
+import {StoreStateType} from "../store/store";
 
 const getMode = (language: number) => {
     if (language === Language.C.valueOf() || language.toString() === Language.CPP.toString()) return 'c_cpp';
@@ -26,11 +28,13 @@ const getMode = (language: number) => {
 }
 
 const CodeEditor: FC<{ code: string; onChange: (code: string) => void; language: number }> = props => {
+    const isDarkMode = useSelector((state: StoreStateType) => state.app.isDarkMode);
+
     return <AceEditor
         style={{width: '100%', height: '100%'}}
         placeholder={props.code}
         mode={getMode(props.language)}
-        theme="cloud9_day"
+        theme={isDarkMode ? "one_dark" : "cloud9_day"}
         onChange={props.onChange}
         fontSize={16}
         showPrintMargin={true}

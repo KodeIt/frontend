@@ -33,10 +33,13 @@ const languageItems = [
     }
 ]
 
-const LanguageFilter: FC = props => {
-    return <div className={'grid gap-2'}>
-        <div className={'text-lg text-gray-600 mb-3'}>Languages</div>
-        {languageItems.map(l => <LanguageFilterItem text={l.text} language={l.language}/>)}
+const LanguageFilter: FC<{ selectedItems: Language[]; addItem: (item: Language) => void; remove: (item: Language) => void }> = props => {
+
+    return <div className={'grid gap-2  h-fit'}>
+        <div className={'text-lg text-gray-600 mb-3 dark:text-gray-400'}>Languages</div>
+        {languageItems.map(l => <LanguageFilterItem key={l.text} checked={props.selectedItems.includes(l.language)}
+                                                    addItem={props.addItem} remove={props.remove} text={l.text}
+                                                    language={l.language}/>)}
     </div>
 }
 

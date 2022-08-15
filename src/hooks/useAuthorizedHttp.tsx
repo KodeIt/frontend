@@ -35,7 +35,7 @@ const useAuthorizedHttp = () => {
                         successCallback && successCallback(response.data);
                     })
                     .catch((error) => {
-                        if (error.response.status === 403) {
+                        if (error.status === 403) {
                             axios({
                                 method: "get",
                                 withCredentials: true,

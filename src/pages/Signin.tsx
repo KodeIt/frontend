@@ -1,20 +1,24 @@
 import {FC, useCallback, useEffect} from "react";
 import PageWrapper from "../components/common/PageWrapper";
 import {DoneRounded, FacebookRounded, GitHub, Google} from "@mui/icons-material";
-import BlueButton from "../ui/BlueButton";
 import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import useAuthorizedHttp from "../hooks/useAuthorizedHttp";
 import {User} from "../util/entities";
 import {userActions} from "../store/user-slice";
 import {appActions} from "../store/app-slice";
 import {toast} from "react-toastify";
+import Button from "../ui/Button";
+import {StoreStateType} from "../store/store";
 
 const Signin: FC = props => {
     const url = new URL(window.location.href);
     const dispatch = useDispatch();
+    const userCtx = useSelector((state: StoreStateType) => state.user);
     const navigate = useNavigate();
     const makeRequest = useAuthorizedHttp();
+    const accessToken = url.searchParams.get("accessToken");
+    const refreshToken = url.searchParams.get("refreshToken");
 
     const errorCallback = (data: any) => {
     };
@@ -40,11 +44,14 @@ const Signin: FC = props => {
     );
 
     useEffect(() => {
-        const accessToken = url.searchParams.get("accessToken");
-        const refreshToken = url.searchParams.get("refreshToken");
 
         if (accessToken !== null && refreshToken !== null) {
             dispatch(userActions.updateJWT({accessToken, refreshToken}));
+        }
+    }, [dispatch, url.searchParams]);
+
+    useEffect(() => {
+        if (accessToken !== null && refreshToken !== null && userCtx.jwt.accessToken !== null) {
             toast.promise(
                 makeRequest(
                     {
@@ -58,9 +65,9 @@ const Signin: FC = props => {
                     success: "You have successfully signed in!",
                     error: "Looks like there was a problem!",
                 }
-            );
+            )
         }
-    }, [url.searchParams]);
+    }, [userCtx.jwt])
 
     const handleGoogleLogin = useCallback(() => {
         window.location.href = `${process.env.REACT_APP_BACKEND_URL}/oauth2/authorization/google`;
@@ -102,25 +109,23 @@ const Signin: FC = props => {
                     </div>
                 </div>
                 <div className={'flex flex-col gap-5 w-[90vw] lg:w-[50%] items-end'}>
-                    <BlueButton
+                    <Button
                         onClick={handleGoogleLogin}
                         className={'flex flex-row gap-5 w-[90vw] lg:w-[500px] items-center justify-center'}
                         filled>
                         <Google fontSize={'large'}/>
                         <div>Continue with Google</div>
-                    </BlueButton>
-                    <BlueButton className={'flex flex-row gap-5 w-[90vw] lg:w-[500px] items-center justify-center'}
-                                filled onClick={() => {
-                    }}>
+                    </Button>
+                    <Button className={'flex flex-row gap-5 w-[90vw] lg:w-[500px] items-center justify-center'}
+                            filled onClick={handleFacebookLogin}>
                         <FacebookRounded fontSize={'large'}/>
                         <div>Continue with Facebook</div>
-                    </BlueButton>
-                    <BlueButton className={'flex flex-row gap-5 w-[90vw] lg:w-[500px] items-center justify-center'}
-                                filled onClick={() => {
-                    }}>
+                    </Button>
+                    <Button className={'flex flex-row gap-5 w-[90vw] lg:w-[500px] items-center justify-center'}
+                            filled onClick={handleGithubLogin}>
                         <GitHub fontSize={'large'}/>
                         <div>Continue with Github</div>
-                    </BlueButton>
+                    </Button>
                 </div>
                 <div></div>
             </div>

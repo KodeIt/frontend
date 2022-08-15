@@ -1,18 +1,53 @@
-import {FC, useEffect, useRef, useState} from "react";
+import {FC, useCallback, useEffect, useRef, useState} from "react";
 import Input from "../../ui/Input";
 import RichTextEditor from "../../ui/RichTextEditor";
-import Select, {selectOptionType} from "../../ui/Select";
-import {dummyCountries, dummyStates} from "../../util/dummy-data";
-import BlueButton from "../../ui/BlueButton";
+import {Country, State} from "../../util/entities";
+import useAuthorizedHttp from "../../hooks/useAuthorizedHttp";
+import Select from "../../ui/Select";
+import Button from "../../ui/Button";
+import {useDispatch, useSelector} from "react-redux";
+import {StoreStateType} from "../../store/store";
+import {toast} from "react-toastify";
+import {userActions} from "../../store/user-slice";
+import useFileUpload from "../../hooks/useFileUpload";
 
 const Personal: FC = props => {
-    const [name, setName] = useState('')
-    const [bio, setBio] = useState('');
-    const [state, setState] = useState<selectOptionType>(dummyStates[0]);
-    const [country, setCountry] = useState<selectOptionType>(dummyCountries[0]);
+    const makeUpload = useFileUpload();
+    const dispatch = useDispatch();
+    const userCtx = useSelector((state: StoreStateType) => state.user);
+    const makeAuthorizedRequest = useAuthorizedHttp();
+    const [loading, setLoading] = useState(true);
+    const [name, setName] = useState(userCtx.user.name ? userCtx.user.name : "");
+    const [bio, setBio] = useState(userCtx.user.bio ? userCtx.user.bio : "");
+    const [state, setState] = useState<State | null>(null);
+    const [country, setCountry] = useState<Country | null>(null);
+    const [states, setStates] = useState<State[]>([]);
+    const [countries, setCountries] = useState<Country[]>([]);
     const fileRef = useRef<HTMLInputElement>(null);
     const [logo, setLogo] = useState<File | null>(null);
-    const [preview, setPreview] = useState("");
+    const [preview, setPreview] = useState(userCtx.user.avatar);
+
+    useEffect(() => {
+        setLoading(true);
+        makeAuthorizedRequest({
+            url: '/api/private/misc/countries'
+        }, data => {
+            setCountries(data);
+            setCountry(userCtx.user.country ? userCtx.user.country : data[0]);
+            setLoading(false);
+        }, data => console.log(data))
+    }, [makeAuthorizedRequest]);
+
+    useEffect(() => {
+        setLoading(true);
+        country && makeAuthorizedRequest({
+            url: '/api/private/misc/states?countryId=' + country.id
+        }, data => {
+            setStates(data);
+            setState(userCtx.user.state ? userCtx.user.state : data[0]);
+            setLoading(false);
+        })
+    }, [country, makeAuthorizedRequest]);
 
     useEffect(() => {
         if (!logo) return;
@@ -23,8 +58,70 @@ const Personal: FC = props => {
         return () => URL.revokeObjectURL(p);
     }, [logo]);
 
+    const handleUploadLogo = useCallback(() => {
+        setLoading(true);
+        const data = new FormData();
+        data.append("file", logo!);
+        toast.promise(() => makeUpload({
+            url: '/api/private/user/logo',
+            method: 'post',
+            body: data
+        }, (data) => {
+            dispatch(userActions.updateUser({avatar: data}))
+        }, () => {
+        }, () => setLoading(false)), {
+            pending: 'Updating your profile...',
+            error: 'Error updating your profile!',
+            success: 'Updated your profile successfully!'
+        })
+
+    }, [logo, makeUpload])
+
+    const handleSaveClick = useCallback(() => {
+        setLoading(true);
+
+        toast.promise(() => makeAuthorizedRequest({
+                url: '/api/private/user/',
+                method: 'put',
+                body: {
+                    name,
+                    bio,
+                    state: {
+                        id: state?.id
+                    },
+                    country: {
+                        id: country?.id
+                    }
+                }
+            },
+            data => {
+                dispatch(
+                    userActions.updateUser({
+                        id: data.id,
+                        name: data.name,
+                        email: data.email,
+                        avatar: data.avatar,
+                        bio: data.bio,
+                        memberSince: data.memberSince,
+                        state: data.state,
+                        country: data.country,
+                    })
+                );
+            },
+            () => {
+            },
+            () => {
+                setLoading(false)
+            }
+        ), {
+            pending: 'Updating your profile...',
+            error: 'Error updating your profile!',
+            success: 'Updated your profile successfully!'
+        })
+    }, [bio, country?.id, dispatch, makeAuthorizedRequest, name, state?.id]);
+
     return <div className={'flex flex-col'}>
-        <div className={'text-gray-700 text-xl font-light border-b pb-5 '}>
+        <div className={'text-gray-700 text-xl font-light border-b pb-5 dark:text-gray-300'}>
             <span className={'font-mono text-sky-500'}>Configure</span> your about
         </div>
         <div className={'flex flex-row gap-10 py-10'}>
@@ -33,18 +130,22 @@ const Personal: FC = props => {
                        setValue={setName}/>
                 <RichTextEditor header={'Set your bio'} placeholder={'What should people see in you?'} value={bio}
                                 onChange={setBio}/>
-                <Select header={'Select your country of origin'} data={dummyCountries} value={country}
-                        setValue={setCountry}/>
-                <Select header={'Select your state'} data={dummyStates} value={state} setValue={setState}/>
+                {country &&
+                    <Select disabled={countries.length === 0} header={'Select your country of origin'} data={countries}
+                            value={country}
+                            setValue={setCountry}/>}
+                {state &&
+                    <Select disabled={states.length === 0} header={'Select your state'} data={states} value={state}
+                            setValue={setState}/>}
             </div>
             <div className={'flex-grow gap-5 flex flex-col items-center justify-center'}>
                 <div className="grid gap-10">
-                    <label className="text-md text-gray-500">Upload your logo</label>
+                    <label className="text-md text-gray-400 dark:text-gray-300">Upload your logo</label>
                     <div className="flex items-center justify-center gap-20">
                         <button onClick={() => fileRef.current?.click()}
-                                className="group w-[300px] h-[300px] rounded-full bg-gray-400">
+                                className="group w-[300px] h-[300px] rounded-full bg-gray-400 dark:bg-gray-700">
                             <div
-                                className="group-hover:opacity-100 relative z-20 opacity-0 transition-all ease-out duration-300 bg-gray-400/40 w-full h-full rounded-full flex items-center justify-center text-slate-50">
+                                className="group-hover:opacity-80 dark:bg-gray-700 relative z-20 opacity-0 transition-all ease-out duration-300 bg-gray-400/40 w-full h-full rounded-full flex items-center justify-center text-slate-50">
                                 Browse for logo
                             </div>
                             {preview && (
@@ -60,14 +161,13 @@ const Personal: FC = props => {
 
                     </div>
                 </div>
-                <BlueButton className={'rounded w-full md:w-[60%]'} onClick={() => {
-                }}>Reset</BlueButton>
-                <BlueButton className={'rounded w-full md:w-[60%]'} filled onClick={() => {
-                }}>Upload</BlueButton>
+                <Button className={'rounded w-[200px]'} onClick={() => {
+                }}>Reset</Button>
+                <Button disabled={loading || !logo} className={'rounded w-[200px]'} filled
+                        onClick={handleUploadLogo}>Upload</Button>
             </div>
         </div>
-        <BlueButton className={'w-fit rounded'} filled onClick={() => {
-        }}>Save changes</BlueButton>
+        <Button className={'w-[200px]'} disabled={loading} filled onClick={handleSaveClick}>Save changes</Button>
     </div>
 }
 

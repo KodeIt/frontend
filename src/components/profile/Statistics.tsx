@@ -1,36 +1,42 @@
-import {FC, useState} from "react";
-import CodeItem from "../codes/CodeItem";
-import {dummyCodes} from "../../util/dummy-data";
+import {FC} from "react";
+import {User} from "../../util/entities";
+import {getPointsToNextLevel} from "../../util/calculation";
+import CodeDisplay from "../common/CodeDisplay";
 
-const Statistics: FC = props => {
-    const [codesWritten, setCodesWritten] = useState(dummyCodes.slice(0, 5));
-    const [codesStarred, setCodesStarred] = useState(dummyCodes.slice(3, 6));
+const Statistics: FC<{ user: User }> = ({user}) => {
 
     return <div className={'flex-grow flex flex-col gap-10'}>
-        <div className={'flex justify-between items-center border-b pb-5'}>
-            <div className={'text-2xl text-gray-600 font-semibold '}>Level <span
-                className={'text-sky-500'}>10</span>
+        <div className={'flex justify-between items-center border-b pb-5 dark:border-b-gray-600'}>
+            <div className={'flex gap-2 items-end'}>
+                <div className={'text-2xl text-gray-600 font-semibold dark:text-gray-300'}>Level <span
+                    className={'text-sky-500'}>{user.level}</span>
+                </div>
+                <div className={'text-lg text-gray-600 dark:text-gray-300'}>
+                    ({user.points} xp)
+                </div>
             </div>
             <div className={'font-light text-lg'}><span
-                className={'text-sky-500'}>50</span> more points to <span
-                className={'text-sky-500'}>Level 11</span></div>
+                className={'text-sky-500 '}>{(getPointsToNextLevel(user.level!, user.points!) - user.points!)} xp </span>
+                <span
+                    className={'dark:text-gray-300'}>more
+                to</span> <span
+                    className={'text-sky-500 '}>Level {user.level! + 1}</span></div>
         </div>
-        <div className={'text-2xl text-gray-600 font-semibold border-b pb-5'}>Last <span
+        <div
+            className={'text-2xl text-gray-600 font-semibold border-b pb-5 dark:text-gray-300 dark:border-b-gray-600'}>Last <span
             className={'text-sky-500'}>5</span> codes
             <span
                 className={'text-sky-500'}> written</span>
         </div>
-        <div className={'grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-y-5 md:gap-x-5 md:gap-y-0'}>
-            {codesWritten && codesWritten.map(c => <CodeItem code={c}/>)}
-        </div>
-        <div className={'text-2xl text-gray-600 font-semibold border-b pb-5'}>Last <span
+
+        <CodeDisplay url={'/api/public/code/written/' + user.id} searchOptions={{pageSize: 5}}/>
+        <div
+            className={'text-2xl text-gray-600 font-semibold border-b pb-5 dark:text-gray-300 dark:border-b-gray-600'}>Last <span
             className={'text-sky-500'}>5</span> codes
             <span
                 className={'text-sky-500'}> starred</span>
         </div>
-        <div className={'grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-y-5 md:gap-x-5 md:gap-y-0'}>
-            {codesStarred && codesStarred.map(c => <CodeItem code={c}/>)}
-        </div>
+        <CodeDisplay url={'/api/public/code/starred/' + user.id} searchOptions={{pageSize: 5}}/>
     </div>
 }
 

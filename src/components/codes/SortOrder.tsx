@@ -13,10 +13,12 @@ const sortOptions = [
     },
 ]
 
-const SortOrder: FC = props => {
-    return <div className={'grid gap-2'}>
-        <div className={'text-lg text-gray-600 mb-3'}>Sort Order</div>
-        {sortOptions.map(s => <SortItem text={s.text} option={s.option}/>)}
+const SortOrder: FC<{ selectedOption: SortOrderType; setSelectedOption: (option: number) => void }> = props => {
+    return <div className={'grid gap-2 h-fit'}>
+        <div className={'text-lg text-gray-600 mb-3 dark:text-gray-400'}>Sort Order</div>
+        {sortOptions.map(s => <SortItem key={s.text} text={s.text} option={s.option}
+                                        selectedOption={props.selectedOption}
+                                        setSelectedOption={props.setSelectedOption}/>)}
     </div>
 }
 

@@ -38,7 +38,7 @@ const ProfileSettings: FC = () => {
     }, [selectedId]);
 
     return <PageWrapper className={'gap-16'}>
-        <div className={'text-gray-700 text-4xl font-bold '}><span
+        <div className={'text-gray-700 text-4xl font-bold dark:text-gray-300'}><span
             className={'text-sky-500 font-mono'}>Update</span> your profile settings
         </div>
         <div className={'flex gap-5'}>

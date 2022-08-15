@@ -2,10 +2,12 @@ import {createSlice} from "@reduxjs/toolkit";
 
 interface AppSliceInitialState {
     isLoggedIn: boolean;
+    isDarkMode: boolean;
 }
 
 const initialState: AppSliceInitialState = {
     isLoggedIn: false,
+    isDarkMode: false
 };
 
 const appSlice = createSlice({
@@ -15,6 +17,9 @@ const appSlice = createSlice({
         login(state: AppSliceInitialState) {
             state.isLoggedIn = true;
         },
+        toggleDarkMode(state: AppSliceInitialState) {
+            state.isDarkMode = !state.isDarkMode;
+        }
     },
 });
 

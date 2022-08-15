@@ -1,16 +1,16 @@
 import {FC, ReactNode} from "react";
-import UnauthenticatedNavbar from "./UnauthenticatedNavbar";
+import UnauthenticatedNavbar from "../navbar/UnauthenticatedNavbar";
 import {useSelector} from "react-redux";
 import {StoreStateType} from "../../store/store";
-import AuthenticatedNavbar from "./AuthenticatedNavbar";
+import AuthenticatedNavbar from "../navbar/AuthenticatedNavbar";
 
 const PageWrapper: FC<{ children?: ReactNode; className?: string }> = props => {
     const appCtx = useSelector((state: StoreStateType) => state.app);
 
-    return <div className='w-full h-screen flex flex-col'>
+    return <div className='w-screen overflow-y-scroll flex flex-col dark:bg-[#282c34]'>
         {appCtx.isLoggedIn ? <AuthenticatedNavbar/> : <UnauthenticatedNavbar/>}
         <div
-            className={`w-[90%] py-10 md:w-[80%] lg:w-[1300px] mx-auto flex flex-col h-full ${props.className}`}>{props.children}</div>
+            className={`py-[110px] md:w-[80%] lg:w-[70%] mx-auto flex flex-col h-[100vh] ${props.className}`}>{props.children}</div>
     </div>
 }
 

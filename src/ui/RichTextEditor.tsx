@@ -3,10 +3,10 @@ import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 
 const RichTextEditor: FC<{ value: any; onChange: (value: any) => void; placeholder?: string; header?: string }> = (props) => {
-    return <div className={' h-[200px]'}>
-        <div className={'text-sm text-gray-500 pl-2 mb-1'}>{props.header}</div>
+    return <div className={''}>
+        <div className={'text-sm text-gray-500 pl-2 mb-1 dark:text-gray-400'}>{props.header}</div>
         <ReactQuill
-            className={'h-[70%]'}
+            className={'dark:text-gray-300'}
             placeholder={props.placeholder}
             modules={{
                 toolbar: {

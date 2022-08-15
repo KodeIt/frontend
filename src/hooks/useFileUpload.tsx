@@ -4,9 +4,9 @@ import axios from "axios";
 import {StoreStateType} from "../store/store";
 
 type request = {
-    requestMethod?: string | null;
-    requestBody?: object | null;
-    requestUrl: string;
+    method?: string | null;
+    body?: object | null;
+    url: string;
 };
 
 type callback = (data?: any) => void;
@@ -14,22 +14,20 @@ type callback = (data?: any) => void;
 const useFileUpload = () => {
     const userCtx = useSelector((state: StoreStateType) => state.user);
 
-    const makeUpload = useCallback(
+    return useCallback(
         (requestOptions: request, successCallback?: callback, errorCallback?: callback, completeCallback?: callback) =>
-            new Promise<void>((resolve, reject) => {
-                let config = {
-                    method: requestOptions.requestMethod ? requestOptions.requestMethod : "post",
+            new Promise<void>((resolve, reject) =>
+                axios({
+                    method: requestOptions.method ? requestOptions.method : "post",
                     withCredentials: true,
-                    url: process.env.REACT_APP_BACKEND_URL + requestOptions.requestUrl,
+                    url: process.env.REACT_APP_BACKEND_URL + requestOptions.url,
                     headers: {
                         "Content-Type": "multipart/form-data",
                         Authorization: "Bearer " + userCtx.jwt!.accessToken,
-                        "X-XSRF-TOKEN": document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*=\s*([^;]*).*$)|^.*$/, "$1"),
+                        "X-XSRF-TOKEN": document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1'),
                     },
-                    data: requestOptions.requestBody,
-                };
-
-                axios(config)
+                    data: requestOptions.body
+                })
                     .then((response) => {
                         console.log("heres");
                         resolve();
@@ -39,12 +37,10 @@ const useFileUpload = () => {
                         reject();
                         errorCallback && errorCallback(response.data);
                     })
-                    .finally(() => completeCallback && completeCallback());
-            }),
+                    .finally(() => completeCallback && completeCallback())
+            ),
         [userCtx.jwt]
     );
-
-    return makeUpload;
 };
 
 export default useFileUpload;

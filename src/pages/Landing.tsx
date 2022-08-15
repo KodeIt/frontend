@@ -1,17 +1,17 @@
 import {FC, useCallback} from "react";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import PageWrapper from "../components/common/PageWrapper";
 
 
 const Landing: FC = props => {
 
-    const navigate = useNavigate(); 
-    const routeChange = useCallback( (): void => { 
+    const navigate = useNavigate();
+    const routeChange = useCallback((): void => {
         navigate(`/codes`);
-    }, [navigate] );
+    }, [navigate]);
 
-    return <PageWrapper>
-        <div className={'flex flex-col h-full justify-center items-center gap-10 text-center'}>
+    return <PageWrapper className={''}>
+        <div className={'flex flex-col h-full justify-center items-center gap-10 text-center h-full'}>
             <div className={'text-4xl font-semibold text-sky-500 '}>Lorem ipsum dolor sit amet, consectetur adipiscing
                 elit
             </div>
