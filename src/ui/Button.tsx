@@ -37,7 +37,7 @@ const Button: FC<{
         <button
             onClick={props.onClick}
             disabled={props.disabled}
-            className={`p-3 disabled:bg-gray-400 disabled:border-gray-400 disabled:text-gray-200 transition-all ease-out duration-300 rounded border-2 ${getColor(props.color, props.filled)} w-full ${props.className}`}>{props.children}</button>
+            className={`p-3 disabled:bg-gray-400 disabled:dark:bg-gray-700 disabled:border-gray-400 disabled:text-gray-200 transition-all ease-out duration-300 rounded border-2 ${getColor(props.color, props.filled)} w-full ${props.className}`}>{props.children}</button>
     </div>
 }
 

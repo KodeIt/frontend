@@ -11,6 +11,9 @@ import {toast} from "react-toastify";
 import {userActions} from "../../store/user-slice";
 import useFileUpload from "../../hooks/useFileUpload";
 
+const maxFileSize = 5 * 1024 * 1024;
+const imageExtensions = ["jpg", "jpeg", "gif", "tiff", "psd", "raw", "png", "svg"];
+
 const Personal: FC = props => {
     const makeUpload = useFileUpload();
     const dispatch = useDispatch();
@@ -51,6 +54,16 @@ const Personal: FC = props => {
 
     useEffect(() => {
         if (!logo) return;
+
+        if (logo.size > maxFileSize) {
+            toast.error("File size exceeds 5mb!");
+            return;
+        }
+
+        let extension = logo.name.split(".");
+        if (!imageExtensions.includes(extension[extension.length - 1])) {
+            return;
+        }
 
         const p = URL.createObjectURL(logo);
         setPreview(p);
