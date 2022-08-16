@@ -1,16 +1,15 @@
 import {FC, useCallback} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {HomeRounded, LogoutRounded, PersonRounded, SettingsRounded} from "@mui/icons-material";
 import {useSelector} from "react-redux";
 import {persistor, StoreStateType} from "../../store/store";
 
 const Dropdown: FC = () => {
     const userCtx = useSelector((state: StoreStateType) => state.user);
-    const navigate = useNavigate();
 
     const handleLogout = useCallback(() => {
-        persistor.purge().then(() => navigate('/'));
-    }, [navigate]);
+        persistor.purge().then(() => window.location.href = '/');
+    }, []);
 
     return <div
         className={'z-50 shadow-lg absolute top-[80px] right-[5%] md:right-[10%] lg:right-[15%] bg-gray-100 dark:bg-gray-800 w-[300px] rounded '}>

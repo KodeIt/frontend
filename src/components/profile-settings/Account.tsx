@@ -3,12 +3,10 @@ import Button, {Color} from "../../ui/Button";
 import useAuthorizedHttp from "../../hooks/useAuthorizedHttp";
 import {toast} from "react-toastify";
 import {persistor} from "../../store/store";
-import {useNavigate} from "react-router-dom";
 
-const Profile: FC = () => {
+const Account: FC = () => {
     const makeAuthorizedRequest = useAuthorizedHttp();
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
 
     const handleDelete = useCallback(() => {
         setLoading(true);
@@ -16,7 +14,7 @@ const Profile: FC = () => {
                 url: '/api/private/user/',
                 method: 'delete'
             }, () => {
-                persistor.purge().then(() => navigate('/'));
+                persistor.purge().then(() => window.location.href = '/');
             },
             () => {
             },
@@ -26,11 +24,11 @@ const Profile: FC = () => {
             success: 'Successfully deleted your account',
             error: 'Couldn\'t delete your account'
         });
-    }, [makeAuthorizedRequest, navigate]);
+    }, [makeAuthorizedRequest]);
 
     return <div className={'flex flex-col gap-5'}>
         <div className={'text-gray-700 text-xl font-light border-b pb-5 dark:text-gray-300'}>
-            <span className={'font-mono text-sky-500'}>Modify</span> how your profile functions
+            <span className={'font-mono text-sky-500'}>Modify</span> how your account functions
         </div>
         <div className={'flex flex-col gap-3'}>
             <div className={'text-lg text-gray-600 dark:text-gray-300'}>Delete your account</div>
@@ -45,4 +43,4 @@ const Profile: FC = () => {
     </div>
 }
 
-export default Profile;
+export default Account;

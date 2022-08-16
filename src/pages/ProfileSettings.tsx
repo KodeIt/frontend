@@ -2,7 +2,7 @@ import {FC, useCallback, useState} from "react";
 import PageWrapper from "../components/common/PageWrapper";
 import Personal from "../components/profile-settings/Personal";
 import Appearance from "../components/profile-settings/Appearance";
-import Profile from "../components/profile-settings/Profile";
+import Account from "../components/profile-settings/Account";
 import OptionsPanel from "../components/profile-settings/OptionsPanel";
 
 export type optionType = {
@@ -21,12 +21,12 @@ const options = [
     },
     {
         id: 2,
-        name: "Profile",
+        name: "Account",
     }
 ];
 
 const elements = [
-    <Personal/>, <Appearance/>, <Profile/>
+    <Personal/>, <Appearance/>, <Account/>
 ]
 
 const ProfileSettings: FC = () => {

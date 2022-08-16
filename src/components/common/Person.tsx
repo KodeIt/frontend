@@ -61,7 +61,8 @@ const Person: FC<{ user: User; onUnfollow: (userId: number) => void; onFollow: (
         className={'flex justify-between p-5 items-center bg-transparent bg-white shadow hover:shadow-lg dark:bg-gray-700 rounded-lg relative transition-all ease-out duration-300'}>
         <div className={'flex gap-5 items-center'}>
             <div className={'w-[50px] h-[50px] rounded-full bg-gray-200 dark:bg-gray-700'}>
-                {user.avatar ? <img src={user.avatar} alt={'avatar'}/> : <PersonRounded/>}
+                {user.avatar ? <img className={'w-[50px] h-[50px] rounded-full'} src={user.avatar} alt={'avatar'}/> :
+                    <PersonRounded/>}
             </div>
             <Link className={'text-sky-500 text-lg'} to={'/profile/' + user.id}>{user.name}</Link>
         </div>

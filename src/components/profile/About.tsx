@@ -33,7 +33,6 @@ const About: FC<{ user: User }> = ({user}) => {
     }, [makeRequest, user.id]);
 
     useEffect(() => {
-        setLoading(true);
         checkFollowersAndFollowing();
     }, [makeAuthorizedRequest, userCtx.user.id, user.id, checkFollowersAndFollowing]);
 
