@@ -1,5 +1,5 @@
 import {FC, useCallback, useEffect, useState} from "react";
-import {EmailRounded, GroupRounded, LocationOnRounded, PersonRounded} from "@mui/icons-material";
+import {CalendarMonthRounded, EmailRounded, GroupRounded, LocationOnRounded, PersonRounded} from "@mui/icons-material";
 import useAuthorizedHttp from "../../hooks/useAuthorizedHttp";
 import {useSelector} from "react-redux";
 import {StoreStateType} from "../../store/store";
@@ -8,6 +8,10 @@ import {User} from "../../util/entities";
 import useHttp from "../../hooks/makeRequest";
 import {toast} from "react-toastify";
 import {Link, useNavigate} from "react-router-dom";
+
+const formatDate = (d: Date) => {
+    return new Date(d).toLocaleDateString('en-IN', {month: 'long', year: '2-digit'});
+}
 
 const About: FC<{ user: User }> = ({user}) => {
 
@@ -88,10 +92,12 @@ const About: FC<{ user: User }> = ({user}) => {
         <div className={'flex flex-col gap-3'}>
             <div
                 className={'text-gray-700 text-2xl font-bold border-b pb-3 dark:text-gray-300 dark:border-b-gray-600'}>{user.name}</div>
-            <div className={'text-gray-500 dark:text-gray-400 flex gap-5 text-sm items-center'}><LocationOnRounded/>
+            <div className={'text-gray-500 dark:text-gray-400 flex gap-5 text-sm items-center'}>
+                <LocationOnRounded/>
                 <div>{user.state && user.country ? `${user.state.name}, ${user.country.name}` : 'No data provided'}</div>
             </div>
-            <div className={'text-gray-500 dark:text-gray-400 flex gap-5 text-sm items-center'}><EmailRounded/>
+            <div className={'text-gray-500 dark:text-gray-400 flex gap-5 text-sm items-center'}>
+                <EmailRounded/>
                 <div>{user.email}</div>
             </div>
             <div className={'text-gray-500 dark:text-gray-400 flex gap-2 text-sm items-center'}>
@@ -101,6 +107,10 @@ const About: FC<{ user: User }> = ({user}) => {
                 <div className={'h-1 w-1 rounded-full bg-gray-500'}></div>
                 <Link to={`/profile/${user.id}/following`}
                       className={'text-sky-500'}><span>{followingCount}</span> following</Link>
+            </div>
+            <div className={'text-gray-500 dark:text-gray-400 flex gap-5 text-sm items-center'}>
+                <CalendarMonthRounded/>
+                <div>{formatDate(user.memberSince!)}</div>
             </div>
         </div>
         <div className={'flex flex-col gap-3'}>

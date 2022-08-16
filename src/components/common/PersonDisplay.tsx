@@ -29,16 +29,7 @@ const PersonDisplay: FC<{ url: string; pageIndex?: number; navigationEnabled?: b
     }, [makeRequest, pageIndex, props.url])
 
     const handleUnfollowed = useCallback((userId: number) => {
-        setUsers(prev => {
-            const p = [...prev];
-            p.forEach((u, index) => {
-                if (u.id === userId) {
-                    p[index].isFollowing = false;
-                    return p;
-                }
-            })
-            return p;
-        })
+        setUsers(prev => prev.filter(p => p.id !== userId))
     }, []);
 
     const handleFollowed = useCallback((userId: number) => {

@@ -41,7 +41,8 @@ const Following: FC = () => {
                     <div
                         className={'flex justify-between border-b dark:border-b-gray-700 text-gray-700 dark:text-gray-300 font-bold text-2xl pb-5'}>
                         <div className={'flex gap-2'}>
-                            <Link className={'text-sky-500'} to={'/profile/' + userId}>{user.name}'s</Link>
+                            <Link className={'text-sky-500'}
+                                  to={'/profile/' + userId}>{user.name ? user.name.split(' ')[0] : 'Unknown'}'s</Link>
                             <div>following</div>
                         </div>
                         <div className={'flex gap-2'}>

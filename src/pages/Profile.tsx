@@ -21,7 +21,6 @@ const Profile: FC = () => {
         makeRequest({
             url: '/api/public/user/' + userId
         }, data => {
-            console.log(data);
             setUser(data);
         })
     }, [makeRequest, userId]);
