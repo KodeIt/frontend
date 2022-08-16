@@ -1,7 +1,32 @@
-import {FC} from "react";
+import {FC, useCallback, useState} from "react";
 import Button, {Color} from "../../ui/Button";
+import useAuthorizedHttp from "../../hooks/useAuthorizedHttp";
+import {toast} from "react-toastify";
+import {persistor} from "../../store/store";
+import {useNavigate} from "react-router-dom";
 
 const Profile: FC = () => {
+    const makeAuthorizedRequest = useAuthorizedHttp();
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const handleDelete = useCallback(() => {
+        setLoading(true);
+        toast.promise(() => makeAuthorizedRequest({
+                url: '/api/private/user/',
+                method: 'delete'
+            }, () => {
+                persistor.purge().then(() => navigate('/'));
+            },
+            () => {
+            },
+            () => setLoading(false)
+        ), {
+            pending: 'Deleting your account...',
+            success: 'Successfully deleted your account',
+            error: 'Couldn\'t delete your account'
+        });
+    }, [makeAuthorizedRequest, navigate]);
 
     return <div className={'flex flex-col gap-5'}>
         <div className={'text-gray-700 text-xl font-light border-b pb-5 dark:text-gray-300'}>
@@ -14,7 +39,8 @@ const Profile: FC = () => {
                 As a parting gift we would say that we don't keep any of your data with us(not even your codes!)
                 after you say goodbye.
             </div>
-            <Button filled color={Color.ROSE} className={'w-[400px]'}>I understand, delete my account</Button>
+            <Button disabled={loading} onClick={handleDelete} filled color={Color.ROSE} className={'w-[400px]'}>I
+                understand, delete my account</Button>
         </div>
     </div>
 }
