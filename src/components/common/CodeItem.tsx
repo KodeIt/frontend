@@ -42,7 +42,7 @@ const CodeItem: FC<{ code: Code; onStarred: (codeId: number) => void; onUnStarre
                 url: `/api/private/code/${props.code.id}/star`,
                 method: 'put'
             },
-            data => props.onStarred(props.code.id!)
+            () => props.onStarred(props.code.id!)
         )
     }, [makeAuthorizedRequest, props]);
 
@@ -51,7 +51,7 @@ const CodeItem: FC<{ code: Code; onStarred: (codeId: number) => void; onUnStarre
                 url: `/api/private/code/${props.code.id}/un-star`,
                 method: 'put'
             },
-            data => props.onUnStarred(props.code.id!)
+            () => props.onUnStarred(props.code.id!)
         )
     }, [makeAuthorizedRequest, props]);
 

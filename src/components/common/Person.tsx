@@ -23,11 +23,14 @@ const Person: FC<{ user: User; onUnfollow: (userId: number) => void; onFollow: (
         setLoading(true);
         toast.promise(() =>
                 makeAuthorizedRequest({
-                    url: '/api/private/user/following/add/' + user.id,
-                    method: 'get'
-                }, data => {
-                    user && onFollow(user.id!);
-                }),
+                        url: '/api/private/user/following/add/' + user.id,
+                        method: 'get'
+                    }, () => {
+                        user && onFollow(user.id!);
+                    }, () => {
+                    },
+                    () => setLoading(false)
+                ),
             {
                 pending: `Adding ${user.name!.split(' ')[0]} to following...`,
                 success: `Successfully added ${user.name!.split(' ')[0]} to following!`,
@@ -39,11 +42,14 @@ const Person: FC<{ user: User; onUnfollow: (userId: number) => void; onFollow: (
         setLoading(true);
         toast.promise(() =>
                 makeAuthorizedRequest({
-                    url: '/api/private/user/following/remove/' + user.id,
-                    method: 'get'
-                }, data => {
-                    user && onUnfollow(user.id!);
-                }),
+                        url: '/api/private/user/following/remove/' + user.id,
+                        method: 'get'
+                    }, () => {
+                        user && onUnfollow(user.id!);
+                    }, () => {
+                    },
+                    () => setLoading(false)
+                ),
             {
                 pending: `Removing ${user.name!.split(' ')[0]} to following...`,
                 success: `Successfully removed ${user.name!.split(' ')[0]} from following!`,
@@ -63,8 +69,10 @@ const Person: FC<{ user: User; onUnfollow: (userId: number) => void; onFollow: (
             <Button onClick={() => navigate('/profile/' + user.id)}>View Profile</Button>
             {
                 isLoggedIn && user.id !== userCtx.user.id && (user.isFollowing ?
-                    <Button className={'w-[150px]'} onClick={handleUnFollow} filled color={Color.ROSE}>Unfollow</Button> :
-                    <Button className={'w-[150px]'} onClick={handleFollow} filled color={Color.GREEN}>Follow</Button>)
+                    <Button disabled={loading} className={'w-[150px]'} onClick={handleUnFollow} filled
+                            color={Color.ROSE}>Unfollow</Button> :
+                    <Button disabled={loading} className={'w-[150px]'} onClick={handleFollow} filled
+                            color={Color.GREEN}>Follow</Button>)
             }
         </div>
     </div>

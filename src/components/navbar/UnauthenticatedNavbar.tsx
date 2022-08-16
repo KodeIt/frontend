@@ -1,6 +1,6 @@
 import {FC} from "react";
 
-const UnauthenticatedNavbar: FC = props => {
+const UnauthenticatedNavbar: FC = () => {
     return <div className={'fixed z-50 bg-gray-100 min-h-[80px] w-screen flex items-center'}>
         <div className={`w-[90%] md:w-[80%] lg:w-[70%] mx-auto flex justify-between items-center`}>
             <button onClick={() => window.location.href = '/'}

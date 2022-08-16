@@ -30,7 +30,7 @@ const About: FC<{ user: User }> = ({user}) => {
             },
             data => setFollowingCount(data)
         )
-    }, [makeAuthorizedRequest, user.id, userCtx.user.id]);
+    }, [makeRequest, user.id]);
 
     useEffect(() => {
         setLoading(true);
@@ -41,11 +41,15 @@ const About: FC<{ user: User }> = ({user}) => {
         setLoading(true);
         toast.promise(() =>
                 makeAuthorizedRequest({
-                    url: '/api/private/user/following/add/' + user.id,
-                    method: 'get'
-                }, data => {
-                    checkFollowersAndFollowing();
-                }),
+                        url: '/api/private/user/following/add/' + user.id,
+                        method: 'get'
+                    }, () => {
+                        checkFollowersAndFollowing();
+                    },
+                    () => {
+                    },
+                    () => setLoading(false)
+                ),
             {
                 pending: `Adding ${user.name!.split(' ')[0]} to following...`,
                 success: `Successfully added ${user.name!.split(' ')[0]} to following!`,
@@ -57,11 +61,15 @@ const About: FC<{ user: User }> = ({user}) => {
         setLoading(true);
         toast.promise(() =>
                 makeAuthorizedRequest({
-                    url: '/api/private/user/following/remove/' + user.id,
-                    method: 'get'
-                }, data => {
-                    checkFollowersAndFollowing();
-                }),
+                        url: '/api/private/user/following/remove/' + user.id,
+                        method: 'get'
+                    }, () => {
+                        checkFollowersAndFollowing();
+                    },
+                    () => {
+                    },
+                    () => setLoading(false)
+                ),
             {
                 pending: `Removing ${user.name!.split(' ')[0]} to following...`,
                 success: `Successfully removed ${user.name!.split(' ')[0]} from following!`,

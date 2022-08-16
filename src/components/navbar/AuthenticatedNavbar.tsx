@@ -4,7 +4,7 @@ import {StoreStateType} from "../../store/store";
 import {KeyboardArrowDown, PersonRounded} from "@mui/icons-material";
 import Dropdown from "./Dropdown";
 
-const AuthenticatedNavbar: FC = (props) => {
+const AuthenticatedNavbar: FC = () => {
     const userCtx = useSelector((state: StoreStateType) => state.user);
     const [dropdownCollapsed, setDropdownCollapsed] = useState(false);
 

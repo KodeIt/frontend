@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {StoreStateType} from "../../store/store";
 import {appActions} from "../../store/app-slice";
 
-const Appearance: FC = props => {
+const Appearance: FC = () => {
     const dispatch = useDispatch();
     const isDarkMode = useSelector((state: StoreStateType) => state.app.isDarkMode);
     const [darkEnabled, setDarkEnabled] = useState(isDarkMode);

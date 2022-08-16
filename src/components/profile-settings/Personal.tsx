@@ -14,7 +14,7 @@ import useFileUpload from "../../hooks/useFileUpload";
 const maxFileSize = 5 * 1024 * 1024;
 const imageExtensions = ["jpg", "jpeg", "gif", "tiff", "psd", "raw", "png", "svg"];
 
-const Personal: FC = props => {
+const Personal: FC = () => {
     const makeUpload = useFileUpload();
     const dispatch = useDispatch();
     const userCtx = useSelector((state: StoreStateType) => state.user);
@@ -39,7 +39,7 @@ const Personal: FC = props => {
             setCountry(userCtx.user.country ? userCtx.user.country : data[0]);
             setLoading(false);
         }, data => console.log(data))
-    }, [makeAuthorizedRequest]);
+    }, [makeAuthorizedRequest, userCtx.user.country]);
 
     useEffect(() => {
         setLoading(true);
@@ -50,7 +50,7 @@ const Personal: FC = props => {
             setState(userCtx.user.state ? userCtx.user.state : data[0]);
             setLoading(false);
         })
-    }, [country, makeAuthorizedRequest]);
+    }, [country, makeAuthorizedRequest, userCtx.user.state]);
 
     useEffect(() => {
         if (!logo) return;
@@ -88,7 +88,7 @@ const Personal: FC = props => {
             success: 'Updated your profile successfully!'
         })
 
-    }, [logo, makeUpload])
+    }, [dispatch, logo, makeUpload])
 
     const handleSaveClick = useCallback(() => {
         setLoading(true);

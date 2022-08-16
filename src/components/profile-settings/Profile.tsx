@@ -1,7 +1,7 @@
 import {FC} from "react";
 import Button, {Color} from "../../ui/Button";
 
-const Profile: FC = props => {
+const Profile: FC = () => {
 
     return <div className={'flex flex-col gap-5'}>
         <div className={'text-gray-700 text-xl font-light border-b pb-5 dark:text-gray-300'}>
