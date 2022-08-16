@@ -22,6 +22,7 @@ const About: FC<{ user: User }> = ({user}) => {
     const userCtx = useSelector((state: StoreStateType) => state.user);
     const [followersCount, setFollowersCount] = useState(0);
     const [followingCount, setFollowingCount] = useState(0);
+    const [isFollowing, setIsFollowing] = useState(user.isFollowing);
 
     const checkFollowersAndFollowing = useCallback(() => {
         makeRequest({
@@ -47,6 +48,7 @@ const About: FC<{ user: User }> = ({user}) => {
                         url: '/api/private/user/following/add/' + user.id,
                         method: 'get'
                     }, () => {
+                        setIsFollowing(true);
                         checkFollowersAndFollowing();
                     },
                     () => {
@@ -67,6 +69,7 @@ const About: FC<{ user: User }> = ({user}) => {
                         url: '/api/private/user/following/remove/' + user.id,
                         method: 'get'
                     }, () => {
+                        setIsFollowing(false);
                         checkFollowersAndFollowing();
                     },
                     () => {
@@ -122,7 +125,7 @@ const About: FC<{ user: User }> = ({user}) => {
         </div>
         {
             userCtx.user.id === user.id ? <Button onClick={handleEditProfile}>Edit profile</Button>
-                : user.isFollowing ?
+                : isFollowing ?
                     <Button onClick={handleUnFollow} color={Color.ROSE} disabled={loading}>Unfollow</Button>
                     : <Button onClick={handleFollow} disabled={loading} filled color={Color.GREEN}>Follow</Button>
         }
