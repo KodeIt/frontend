@@ -110,7 +110,7 @@ const About: FC<{ user: User }> = ({user}) => {
             </div>
             <div className={'text-gray-500 dark:text-gray-400 flex gap-5 text-sm items-center'}>
                 <CalendarMonthRounded/>
-                <div>{formatDate(user.memberSince!)}</div>
+                <div>Member since {formatDate(user.memberSince!)}</div>
             </div>
         </div>
         <div className={'flex flex-col gap-3'}>
