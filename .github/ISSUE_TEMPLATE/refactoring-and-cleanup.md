@@ -2,7 +2,7 @@
 name: Refactoring and Cleanup
 about: Refactor old code logic and remove unused code
 title: ''
-labels: cleanup, refactoring
+labels: cleanup
 assignees: ''
 
 ---
