@@ -108,23 +108,21 @@ const Signin: FC = props => {
                         <div className={'text-gray-500'}>Protect your eyes with the dark mode!</div>
                     </div>
                 </div>
-                <div className={'flex flex-col gap-5 w-[90vw] lg:w-[50%] items-end'}>
-                    <Button
-                        onClick={handleGoogleLogin}
-                        className={'flex flex-row gap-5 w-[90vw] lg:w-[500px] items-center justify-center'}
-                        filled>
+                <div className={'flex flex-col gap-5 w-[90vw] lg:w-[50%] items-center'}>
+                    <Button className={'flex flex-row gap-x-40 gap-y-5 w-[90vw] lg:w-[500px] items-center justify-center'}
+                            filled onClick={handleGoogleLogin}>
                         <Google fontSize={'large'}/>
-                        <div>Continue with Google</div>
+                        <span>Continue with Google</span>
                     </Button>
-                    <Button className={'flex flex-row gap-5 w-[90vw] lg:w-[500px] items-center justify-center'}
+                    <Button className={'flex flex-row gap-x-40 gap-y-5 -space-x-3 w-[90vw] lg:w-[500px] items-center justify-center'}
                             filled onClick={handleFacebookLogin}>
                         <FacebookRounded fontSize={'large'}/>
-                        <div>Continue with Facebook</div>
+                        <span>Continue with Facebook</span>
                     </Button>
-                    <Button className={'flex flex-row gap-5 w-[90vw] lg:w-[500px] items-center justify-center'}
+                    <Button className={'flex flex-row gap-x-40 space-x-1.5 gap-y-5 w-[90vw] lg:w-[500px] items-center justify-center'}
                             filled onClick={handleGithubLogin}>
                         <GitHub fontSize={'large'}/>
-                        <div>Continue with Github</div>
+                        <span>Continue with Github</span>
                     </Button>
                 </div>
                 <div></div>
