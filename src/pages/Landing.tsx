@@ -12,12 +12,9 @@ const Landing: FC = props => {
 
     return <PageWrapper className={''}>
         <div className={'flex flex-col h-full justify-center items-center gap-10 text-center h-full'}>
-            <div className={'text-4xl font-semibold text-sky-500 '}>Lorem ipsum dolor sit amet, consectetur adipiscing
-                elit
+            <div className={'text-4xl font-semibold text-sky-500 '}>Code . Compile . Collaborate
             </div>
-            <div className={'text-2xl font-light text-gray-700'}>Pellentesque id lacus sit amet orci laoreet semper
-                vitae a leo. Aenean iaculis at neque id interdum. Ut pulvinar dignissim ligula sed auctor. Praesent
-                varius odio non odio fringilla pellentesque
+            <div className={'text-2xl font-light text-gray-700'}>An online coding platform where you can code, compile and collaborate with others in the community.
             </div>
             <button className={'text-xl font-light rounded border-2 border-sky-500 text-sky-500 p-3 w-[250px]'}
                     onClick={routeChange}>View codes
