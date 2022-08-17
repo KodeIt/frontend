@@ -12,24 +12,24 @@ const Dropdown: FC = () => {
     }, []);
 
     return <div
-        className={'z-50 shadow-lg absolute top-[80px] right-[5%] md:right-[10%] lg:right-[15%] bg-gray-100 dark:bg-gray-800 w-[300px] rounded '}>
+        className={'z-50 shadow-lg absolute top-[80px] right-[5%] md:right-[10%] lg:right-[15%] bg-gray-100 dark:bg-gray-700 w-[300px] rounded '}>
         <Link to={'/'}
-              className={'flex items-center justify-start gap-10 p-5 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all ease-out duration-300'}>
+              className={'flex items-center justify-start gap-10 p-5 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all ease-out duration-300'}>
             <HomeRounded className={'text-gray-700 dark:text-gray-300'}/>
             <div className={'text-sky-500'}>Home</div>
         </Link>
         <Link to={`/profile/${userCtx.user.id}`}
-              className={'flex gap-10 items-center justify-start p-5 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all ease-out duration-300'}>
+              className={'flex gap-10 items-center justify-start p-5 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all ease-out duration-300'}>
             <PersonRounded className={'text-gray-700 dark:text-gray-300'}/>
             <div className={'text-sky-500'}>Profile</div>
         </Link>
         <Link to={'/settings'}
-              className={'flex gap-10 items-center justify-start p-5 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all ease-out duration-300'}>
+              className={'flex gap-10 items-center justify-start p-5 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all ease-out duration-300'}>
             <SettingsRounded className={'text-gray-700 dark:text-gray-300'}/>
             <div className={'text-sky-500'}>Settings</div>
         </Link>
         <button onClick={handleLogout}
-                className={'w-full flex gap-10 items-center justify-start p-5 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all ease-out duration-300'}>
+                className={'w-full flex gap-10 items-center justify-start p-5 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all ease-out duration-300'}>
             <LogoutRounded className={'text-gray-700 dark:text-gray-300'}/>
             <div className={'text-sky-500'}>Log Out</div>
         </button>
