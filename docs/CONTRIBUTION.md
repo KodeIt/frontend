@@ -22,7 +22,7 @@
 -   Clone the repository in your local machine by typing
 
     ```bash
-    git clone https://github.com/<your-username>/frontend.git
+    git clone https://github.com/<your-username>/kodeit-frontend.git
     ```
 
     in your terminal(for mac/linux) or Git Bash (for windows).
@@ -35,7 +35,7 @@
 ### Step 2
 
 -   Install `nodejs` and `npm` on your local machine. For [windows](https://www.geeksforgeeks.org/installation-of-node-js-on-windows/), [linux](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-20-04) and [mac](https://nodesource.com/blog/installing-nodejs-tutorial-mac-os-x/)
--   Navigate to the `frontend` directory and run the following command in your terminal(for mac/linux) or Git Bash (for windows):
+-   Navigate to the `kodeit-frontend` directory and run the following command in your terminal(for mac/linux) or Git Bash (for windows):
     ```bash
     npm install
     ```
@@ -46,9 +46,9 @@ Now you can start working on the project.
 
 -   Now that we have everything set up, the last thing to do is configure .env. A dummy placeholder file named [.env-dummy](../.env-dummy) is already provided in the root directory.
 -   If you are working on some feature that does not require you to do authenticated stuff or doesn't involve sending requests to and from the backend, then you are free to jump to step 4.
--   If that is not the case, you first need to set up the [backend server](https://github.com/KodeIt/kodeit-backedn)
+-   If that is not the case, you first need to set up the [backend server](https://github.com/KodeIt/kodeit-backend)
 
-### Step 3
+### Step 4
 
 -   To start the development server, run the following command in your terminal(for mac/linux) or Git Bash (for windows):
     ```bash
