@@ -14,8 +14,10 @@ import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {StoreStateType} from "../store/store";
 import Button, {Color} from "../ui/Button";
+import { useChangeTitle } from "../hooks";
 
 const Compiler: FC = (props) => {
+    useChangeTitle("Compiler");
     const codeId = new URL(window.location.href).searchParams.get("id");
     const appCtx = useSelector((state: StoreStateType) => state.app);
     const navigate = useNavigate();
