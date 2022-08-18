@@ -1,14 +1,43 @@
-# KodeIt
+# Welcome to kodeit-frontend 👋
 
-KodeIt is an online web based platform for compiling and running codes. This saves the user from the hassle of creating development environments and even downloading any editor. Being an opensource project, this organization delivers the freedom to anyone who is willing to help us out in any way possible.
+[![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/KodeIt/kodeit-frontend/blob/master/docs/CONTRIBUTION.md)
+[![License: GPL--3.0](https://img.shields.io/badge/License-GPL--3.0-yellow.svg)](https://github.com/KodeIt/kodeit-frontend/blob/master/LICENCE.md)
 
-# Website
+> KodeIt is an online web based platform for compiling and running codes. This saves the user from the hassle of creating development environments and even downloading any editor. Being an opensource project, this organization delivers the freedom to anyone who is willing to help us out in any way possible.
 
-We are always up and running at http://www.kodeit.me
+### 🏠 [Homepage](http://www.kodeit.me)
 
-# Contributing
+## Install
 
-We are always open to contributions. Just make sure that you have read
+```sh
+npm install
+```
 
--   [CONTRIBUTION.md](./docs/CONTRIBUTION.md)
--   [Commit message guidelines](./docs/COMMIT_MESSAGE_GUIDELINES.md)
+## Usage
+
+```sh
+npm start
+```
+
+## Author
+
+👤 **Rajdip Bhattacharya**
+
+-   [Github](https://github.com/rajdip-b)
+-   [LinkedIn](https://linkedin.com/in/rajdip-bhattacharya-581119232/)
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!
+
+Feel free to check [issues page](https://github.com/KodeIt/kodeit-frontend/issues). You can also take a look at the [contributing guide](https://github.com/KodeIt/kodeit-frontend/blob/master/docs/CONTRIBUTION.md).
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+## 📝 License
+
+Copyright © 2022 [Rajdip Bhattacharya](https://github.com/rajdip-b).
+
+This project is [GPL--3.0](https://github.com/KodeIt/kodeit-frontend/blob/master/LICENCE.md) licensed.
