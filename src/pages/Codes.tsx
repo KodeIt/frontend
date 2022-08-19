@@ -31,6 +31,18 @@ const Codes: FC = () => {
 
     return (
         <PageWrapper className={"gap-5"}>
+            <script async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6622971471365186"
+                    crossOrigin="anonymous"></script>
+            <ins className="adsbygoogle"
+                 style={{display: 'block'}}
+                 data-ad-format="fluid"
+                 data-ad-layout-key="-hh+g-c-5v+bq"
+                 data-ad-client="ca-pub-6622971471365186"
+                 data-ad-slot="6666173361"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
             <div className={"text-gray-600 text-xl font-bold dark:text-gray-300"}>Search from a pool of community
                 codes
             </div>
