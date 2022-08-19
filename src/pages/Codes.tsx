@@ -6,8 +6,10 @@ import SortOrder from "../components/codes/SortOrder";
 import CodeDisplay from "../components/common/CodeDisplay";
 import Input from "../ui/Input";
 import {Language, SortOptionType, SortOrderType} from "../util/enums";
+import { useChangeTitle } from "../hooks";
 
 const Codes: FC = () => {
+    useChangeTitle("Codes");
     const [search, setSearch] = useState('');
     const [selectedLanguages, setSelectedLanguages] = useState<Language[]>([
         Language.C,
