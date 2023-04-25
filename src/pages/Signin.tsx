@@ -114,17 +114,17 @@ const Signin: FC = props => {
                         className={'flex flex-row gap-5 w-[90vw] lg:w-[500px] items-center justify-center'}
                         filled>
                         <Google fontSize={'large'}/>
-                        <div>Continue with Google</div>
+                        <div className={'w-[200px]'}>Continue with Google</div>
                     </Button>
                     <Button className={'flex flex-row gap-5 w-[90vw] lg:w-[500px] items-center justify-center'}
                             filled onClick={handleFacebookLogin}>
                         <FacebookRounded fontSize={'large'}/>
-                        <div>Continue with Facebook</div>
+                        <div className={'w-[200px]'}>Continue with Facebook</div>
                     </Button>
                     <Button className={'flex flex-row gap-5 w-[90vw] lg:w-[500px] items-center justify-center'}
                             filled onClick={handleGithubLogin}>
                         <GitHub fontSize={'large'}/>
-                        <div>Continue with Github</div>
+                        <div className={'w-[200px]'}>Continue with Github</div>
                     </Button>
                 </div>
                 <div></div>
